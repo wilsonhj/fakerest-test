@@ -1,4 +1,6 @@
-# Simple Coding Homework Assignment - JSON REST client
+# Take-Home Coding Assignment
+
+## JSON REST client
 
 This coding assignment will allow us to evaluate your ability to write a REST client that processes JSON data.  This is aimed at a more senior Engineer.
 
