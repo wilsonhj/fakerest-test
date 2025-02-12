@@ -36,7 +36,7 @@ PLEAE READ AND FOLLOW ALL THE INSTRUCTIONS.  We will ignore any submission that 
 
 * The challenge is to do a simple REST implementation of this protocol yourself
 * Command line only - no GUI wanted or needed.  Please don't do a GUI
-* Must run on linux at the command line, accepting the endpoint to be queried as a command line parameter and returning the data desired
+* Must run on the command line (terminal), accepting the endpoint to be queried as a command line parameter and returning the data desired
 * Program must query the API for a result over the network
 * The program must be able to be run repeatedly and process the data correctly each time, even if the data changes
 * The program must handle reasonable error conditions
