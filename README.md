@@ -3,7 +3,7 @@
 This coding assignment will allow us to evaluate your ability to write a REST client that processes JSON data.  This is aimed at a more senior Engineer.
 
 When assigned this test you will also be instructed if there is a preferred language to use, usually typescript, C++ or golang.  If not directed otherwise,
-you may use any language you like. We are looking for clean, simple code that worksand that is easy to read and understand.
+you may use any language you like. We are looking for clean, simple code that works and that is easy to read and understand.
 
 Please follow these instructions *exactly* and carefully read the requirements below.  We will ignore any submissions that don't follow these instructions.
 
@@ -14,7 +14,7 @@ The program should query "http://test.brightsign.io:3000" and process the data r
 The data returned is a JSON array and it changes on each call to the server.  The data is an array of user objects.
 There is no further documentation on the format of the data.  You must figure it out from the data itself.  Please consider this as part of the test, and document your findings in your README.
 
-Using the data retreived from the endpoint, calculate #1 and #2.  Unless you have been asked to do more the rest are optional, but will be considered as extra credit.
+Using the data retreived from the endpoint, calculate #1 and #2.  Unless you have been asked to do more the other tasks are optional, but will be considered as extra credit.
 
 ## Calculations
 
@@ -45,4 +45,6 @@ PLEAE READ AND FOLLOW ALL THE INSTRUCTIONS.  We will ignore any submission that 
 * Consider security in your solution, even if it's just discussing it in your README
 * This is an example of your work.  Don't make a career out of it but take the time to do a decent job
 
-We look forward to seeing your response.
+## Submission
+
+Please just submit the URL of the public GitHub repository you used for this assignment.
