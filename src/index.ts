@@ -1,6 +1,8 @@
 import axios from "axios";
 import { User } from "./types";
 import { computeStats } from "./dataProcessor";
+import { parseJSON, validateUserData } from "./utils";
+
 
 function parseEndpointArgs(argv: string[]): string {
     const defaultEndpoint = "http://test.brightsign.io:3000";
@@ -8,29 +10,11 @@ function parseEndpointArgs(argv: string[]): string {
     return endpointArg ? endpointArg.split("=")[1] : defaultEndpoint;
 }
 
-
 async function fetchUsers(endpoint: string): Promise<User[]> {
     try {
-        const response = await axios.get(endpoint, { responseType: "text"});
-        const rawData: string = response.data;
-        // console.log("raw data from endpoint: ", rawData);
-        
-        let data: any;
-        try {
-            // first attemp: parse as standard JSON array
-            data = JSON.parse(rawData);
-        } catch (error) {
-            // otherwise process as NDJSON
-            data = rawData
-                .split("\n")
-                .map(line => line.trim())
-                .filter(line => line.length > 0)
-                .map(line => JSON.parse(line));
-        }
-        if (!Array.isArray(data) || data.length === 0) {
-            throw new Error("Data is not an array or is nullish")
-        }
-        return data;
+        const response = await axios.get(endpoint, { responseType: "text" });
+        const parsedData = parseJSON(response.data);
+        return validateUserData(parsedData);
     } catch (error: any) {
         throw new Error(`Error fetching data from ${endpoint}: ${error.message}`);
     }
