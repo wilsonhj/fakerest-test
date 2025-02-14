@@ -1,0 +1,25 @@
+{
+  "name": "fakerest-test",
+  "version": "1.0.0",
+  "description": "## JSON REST client - performs read operation on endpoint, business logic on data, and serves this data to user via a CLI tool",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "Hiro James",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.9"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^22.13.4",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}
