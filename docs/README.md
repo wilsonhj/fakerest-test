@@ -1,3 +1,17 @@
+## Explanation: 
+
+To Run code: 
+
+git clone https://github.com/wilsonhj/fakerest-test.git
+cd fakerest-test
+npm install
+
+npx ts-node src/index.ts --endpoint=http://test.brightsign.io:3000 
+
+Please email me / DM me if you have any questions. 
+
+- H.J.
+
 # Take-Home Coding Assignment
 
 ## JSON REST client
