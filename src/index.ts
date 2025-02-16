@@ -12,7 +12,7 @@ function parseEndpointArgs(argv: string[]): string {
 
 async function fetchUsers(endpoint: string): Promise<User[]> {
     try {
-        const response = await axios.get(endpoint, { responseType: "text" });
+        const response = await axios.get(endpoint, { responseType: "text", timeout: 5000 });
         const parsedData = parseJSON(response.data);
         return validateUserData(parsedData);
     } catch (error: any) {

@@ -17,6 +17,9 @@ export function findMostCommon(counts: Record<string, number>): string {
 }
 
 export function parseJSON(rawData: string): any[] {
+    if (!rawData.trim()) {
+        throw new Error("empy input is invalid JSON");
+    }
     try {
         return parseStandardJSON(rawData);
     } catch (error) {
