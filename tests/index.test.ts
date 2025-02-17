@@ -19,7 +19,7 @@ describe('CLI integration tests', () => {
         }];
         
         mockedAxios.get.mockResolvedValueOnce({
-            data: mockUsers
+            data: JSON.stringify(mockUsers)
         });
 
         try {
