@@ -26,23 +26,18 @@ describe('utils', () => {
     });
     describe('parseJSON', () => {
         test('parses standard JSON', () => {
-            const jsonString = '[{"id": 1, "name": "John Smith"}, {"id": 2, "name": "Jane Doe"}]';
-            const result = parseJSON(jsonString);
-            expect(result).toEqual([
-                { id: 1, name: "John Smith" },
-                { id: 2, name: "Jane Doe" },
-            ]);
+            const input = '[{"id":1,"name":"Test User"}]';
+            expect(parseJSON(input)).toEqual([{id: 1, name: "Test User"}]);
         });
         test('parses NDJSON', () => {
-            const ndjsonString = '{"id": 1, "name": "John Smith"}\n{"id": 2, "name": "Jane Doe"}';
-            const result = parseJSON(ndjsonString);
-            expect(result).toEqual([
-                { id: 1, name: "John Smith" },
-                { id: 2, name: "Jane Doe" },
+            const input = '{"id":1,"name":"User1"}\n{"id":2,"name":"User2"}';
+            expect(parseJSON(input)).toEqual([
+                {id: 1, name: "User1"},
+                {id: 2, name: "User2"}
             ]);
         });
         test('handles empty input', () => {
-            expect(() => parseJSON('')).toThrow('empy input is invalid JSON');
+            expect(() => parseJSON('')).toThrow('Empty input is not valid JSON');
         });
     });
     describe('validateUserData', () => {

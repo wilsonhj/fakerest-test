@@ -1,19 +1,36 @@
 {
-  "name": "fakerest-test",
+  "name": "fakerest-client",
   "version": "1.0.0",
-  "description": "## JSON REST client - performs read operation on endpoint, business logic on data, and serves this data to user via a CLI tool",
+  "description": "CLI tool for processing JSON data from REST endpoints",
   "main": "dist/index.js",
-  "scripts": {
-    "start": "ts-node src/index.ts",
-    "build": "tsc",
-    "test": "jest",
-    "test:coverage": "jest --coverage"
+  "bin": {
+    "fakerest-client": "./bin/cli.js"
   },
-  "keywords": [],
+  "scripts": {
+    "build": "tsc",
+    "start": "node ./bin/cli.js",
+    "test": "jest --detectOpenHandles",
+    "prepare": "npm run build",
+    "postinstall": "chmod +x ./bin/cli.js"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "docs"
+  ],
+  "keywords": [
+    "cli",
+    "rest",
+    "json",
+    "api",
+    "jq"
+  ],
   "author": "Hiro James",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.7.9"
+    "axios": "^1.7.9",
+    "commander": "^8.0.0",
+    "dotenv": "^16.4.7"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",

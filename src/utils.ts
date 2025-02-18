@@ -16,33 +16,76 @@ export function findMostCommon(counts: Record<string, number>): string {
     return mostCommon;
 }
 
-export function parseJSON(rawData: string): any[] {
-    if (!rawData.trim()) {
-        throw new Error("empy input is invalid JSON");
-    }
-    try {
-        return parseStandardJSON(rawData);
-    } catch (error) {
-        return parseNDJSON(rawData);
-    }
-}
+// Pure function to clean JSON data
+export const cleanJsonData = (raw: string): string => 
+    raw.replace(/[\x00-\x1F\x7F-\x9F]/g, '')
+        .trim();
 
-export function validateUserData(data: any[]): User[] {
-    if (!Array.isArray(data) || data.length === 0) {
+// Pure function to safely parse JSON
+export const safeJsonParse = (data: string): unknown => {
+    try {
+        return JSON.parse(data);
+    } catch (e) {
+        // Type guard for Error objects
+        if (e instanceof Error) {
+            throw new Error(`Invalid JSON format: ${e.message}`);
+        }
+        // Fallback for unknown error types
+        throw new Error('Invalid JSON format: Unknown error');
+    }
+};
+
+// Parse NDJSON (Newline Delimited JSON)
+export const parseNDJSON = (data: string): unknown[] => 
+    data.split('\n')
+        .filter(line => line.trim())
+        .map(line => safeJsonParse(cleanJsonData(line)));
+
+// Main parsing function with better error handling
+export const parseJSON = (rawData: string): unknown[] => {
+    if (!rawData.trim()) {
+        throw new Error('Empty input is not valid JSON');
+    }
+
+    try {
+        // Try parsing as standard JSON first
+        const cleaned = cleanJsonData(rawData);
+        const parsed = safeJsonParse(cleaned);
+        return Array.isArray(parsed) ? parsed : [parsed];
+    } catch (error) {
+        // If standard JSON fails, try parsing as NDJSON
+        try {
+            return parseNDJSON(rawData);
+        } catch (e) {
+            if (e instanceof Error) {
+                throw new Error(`Failed to parse JSON: ${e.message}`);
+            }
+            throw new Error('Failed to parse JSON: Unknown error');
+        }
+    }
+};
+
+// Type guard for User array
+export const isUserArray = (data: unknown): data is User[] => 
+    Array.isArray(data) && 
+    data.length > 0 &&
+    data.every(item => 
+        typeof item === 'object' && 
+        item !== null &&
+        'id' in item &&
+        'name' in item &&
+        'age' in item &&
+        'city' in item &&
+        'friends' in item
+    );
+
+// Validate user data with type safety
+export const validateUserData = (data: unknown): User[] => {
+    if (!isUserArray(data)) {
         throw new Error("Data is not an array or is empty");
     }
-    return data as User[];
-}
+    return data;
+};
 
-function parseStandardJSON(rawData: string): any[] {
-    return JSON.parse(rawData);
-}
 
-function parseNDJSON(rawData: string): any[] {
-    return rawData
-        .split("\n")
-        .map(line => line.trim())
-        .filter(line => line.length > 0)
-        .map(line => JSON.parse(line));
-}
 
